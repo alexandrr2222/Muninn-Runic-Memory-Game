@@ -1,16 +1,16 @@
-const files = import.meta.glob<{ default: string }>("./assets/sounds/*", {
+const files = import.meta.glob<{ default: string }>("./assets/*", {
   eager: true,
 });
 
-const loseSound = new Audio(files["./assets/sounds/lose.mp3"].default);
-const winSound = new Audio(files["./assets/sounds/win.mp3"].default);
-const toggleOnSound = new Audio(files["./assets/sounds/toggle-on.wav"].default);
+const loseSound = new Audio(files["./assets/lose.mp3"].default);
+const winSound = new Audio(files["./assets/win.mp3"].default);
+const toggleOnSound = new Audio(files["./assets/toggle-on.wav"].default);
 const toggleOffSound = new Audio(
-  files["./assets/sounds/toggle-off.wav"].default,
+  files["./assets/toggle-off.wav"].default,
 );
 const knockSoundArray: Array<HTMLAudioElement> = [];
 for (let i = 1; i < 6; i++) {
-  const knockSound = new Audio(files[`./assets/sounds/knock-${i}.wav`].default);
+  const knockSound = new Audio(files[`./assets/knock-${i}.wav`].default);
   knockSound.preservesPitch = false;
   knockSoundArray.push(knockSound);
 }

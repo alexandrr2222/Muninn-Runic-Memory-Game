@@ -1,7 +1,7 @@
-import { Header } from "./header/Header";
-import { CardGame } from "./cardGame/CardGame";
-import { useSettings } from "./settings/useSettings";
-import { musicPlayer } from "./music";
+import { Header } from "./Header";
+import { useSettings } from "@/shared/settings/useSettings";
+import { CardGame } from "@/features/cardGame/CardGame";
+import { musicPlayer } from "@/features/musicPlayer/music";
 import { useEffect } from "react";
 
 function App() {

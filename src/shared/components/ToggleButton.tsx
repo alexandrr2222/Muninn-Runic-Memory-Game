@@ -1,5 +1,5 @@
 import { commonIconStyle } from "../styles";
-import { sounds, playSound } from "../sounds";
+import { sounds, playSound } from "../sound/sounds";
 import type { SettingsType } from "../settings/settings";
 export function ToggleButton({
   pressed,

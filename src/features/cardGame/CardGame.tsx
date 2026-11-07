@@ -2,16 +2,16 @@ import { useEffect, useRef, useState } from "react";
 import { Card } from "./Card";
 import { cards } from "./CardsArray";
 import { shuffle } from "./shuffleCards";
-import type { CardType } from "../types";
+import type { CardType } from "@/shared/types";
 import { EndDialog } from "./EndDialog";
-import type { SettingsType } from "../settings/settings";
-import { sounds, playSound } from "../sounds";
+import type { SettingsType } from "@/shared/settings/settings";
+import { sounds, playSound } from "@/shared/sound/sounds";
 import { AnimatePresence, motion } from "motion/react";
-import { shadow } from "../styles";
-import { fetchWiki } from "./wikiFetch";
-import type { WikiDataType } from "../types";
-import { CardPopUp } from "./CardPopUp";
-import { Tutorial } from "../Tutorial";
+import { shadow } from "@/shared/styles";
+import { fetchWiki } from "@/features/cardInfo/wikiFetch";
+import type { WikiDataType } from "@/shared/types";
+import { CardPopUp } from "@/features/cardInfo/CardPopUp";
+import { Tutorial } from "@/features/tutorial/Tutorial";
 export function CardGame({ settings }: { settings: SettingsType }) {
   const tutorialRef = useRef<HTMLDialogElement>(null);
   useEffect(() => {

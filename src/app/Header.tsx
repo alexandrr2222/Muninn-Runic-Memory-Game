@@ -1,12 +1,12 @@
-import SpeakerOn from "../assets/icons/speaker.svg?react";
-import SpeakerOff from "../assets/icons/speaker-off.svg?react";
-import MusicOn from "../assets/icons/sound-on.svg?react";
-import MusicOff from "../assets/icons/sound-off.svg?react";
-import TooltipsOn from "../assets/icons/candle-on.svg?react";
-import TooltipsOff from "../assets/icons/candle-off.svg?react";
-import type { SettingsType } from "../settings/settings";
-import { ToggleButton } from "./ToggleButton";
-import { shadow } from "../styles";
+import SpeakerOn from "./assets/headerUI/speaker.svg?react";
+import SpeakerOff from "./assets/headerUI/speaker-off.svg?react";
+import MusicOn from "./assets/headerUI/sound-on.svg?react";
+import MusicOff from "./assets/headerUI/sound-off.svg?react";
+import TooltipsOn from "./assets/headerUI/candle-on.svg?react";
+import TooltipsOff from "./assets/headerUI/candle-off.svg?react";
+import type { SettingsType } from "@/shared/settings/settings";
+import { ToggleButton } from "@/shared/components/ToggleButton";
+import { shadow } from "@/shared/styles";
 export function Header({
   toggleSetting,
   settings,

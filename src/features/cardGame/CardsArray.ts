@@ -1,10 +1,10 @@
-import type { CardType } from "../types";
+import type { CardType } from "@/shared/types";
 
-const files = import.meta.glob<{ default: string }>("../assets/cards/*.svg", {
+const files = import.meta.glob<{ default: string }>("./assets/*.svg", {
   eager: true,
 });
 function getIcon(file: string) {
-  return files[`../assets/cards/${file}`].default;
+  return files[`./assets/${file}`].default;
 }
 export const cards: Array<CardType> = [
   { id: 1, name: "Fé", icon: getIcon("01-fe.svg"), wikiTitle: "Fehu" },

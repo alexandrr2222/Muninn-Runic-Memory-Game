@@ -1,9 +1,9 @@
-import type { CardType, WikiDataType } from "../types";
+import type { CardType, WikiDataType } from "@/shared/types";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
-import backCard from "../assets/cards/00-back.svg";
-import type { SettingsType } from "../settings/settings";
-import { sounds, playSound } from "../sounds";
+import backCard from "./assets/00-back.svg";
+import type { SettingsType } from "@/shared/settings/settings";
+import { sounds, playSound } from "@/shared/sound/sounds";
 
 export function Card({
   cardObject,
