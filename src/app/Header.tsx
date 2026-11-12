@@ -4,16 +4,11 @@ import MusicOn from "./assets/headerUI/sound-on.svg?react";
 import MusicOff from "./assets/headerUI/sound-off.svg?react";
 import TooltipsOn from "./assets/headerUI/candle-on.svg?react";
 import TooltipsOff from "./assets/headerUI/candle-off.svg?react";
-import type { SettingsType } from "@/shared/settings/settings";
 import { ToggleButton } from "@/shared/components/ToggleButton";
 import { shadow } from "@/shared/styles";
-export function Header({
-  toggleSetting,
-  settings,
-}: {
-  toggleSetting: (settingsItem: keyof SettingsType) => void;
-  settings: SettingsType;
-}) {
+import { useSettingsContext } from "@/shared/settings/useSettingsContext";
+export function Header() {
+  const { settings, toggleSetting } = useSettingsContext();
   return (
     <header
       className={`grid grid-cols-[1fr_auto_1fr] items-center sm:px-8 ${shadow}`}

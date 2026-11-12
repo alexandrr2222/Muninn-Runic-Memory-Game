@@ -4,22 +4,16 @@ import { cards } from "./CardsArray";
 import { shuffle } from "./shuffleCards";
 import type { CardType } from "@/shared/types";
 import { EndDialog } from "./EndDialog";
-import type { SettingsType } from "@/shared/settings/settings";
 import { sounds, playSound } from "@/shared/sound/sounds";
 import { AnimatePresence, motion } from "motion/react";
 import { shadow } from "@/shared/styles";
 import { fetchWiki } from "@/features/cardInfo/wikiFetch";
 import type { WikiDataType } from "@/shared/types";
 import { CardPopUp } from "@/features/cardInfo/CardPopUp";
-import { Tutorial } from "@/features/tutorial/Tutorial";
-export function CardGame({ settings }: { settings: SettingsType }) {
-  const tutorialRef = useRef<HTMLDialogElement>(null);
-  useEffect(() => {
-    if (localStorage.getItem("seenTutorial")) return;
-    localStorage.setItem("seenTutorial", "true");
-    tutorialRef.current?.showModal();
-    tutorialRef.current?.focus();
-  }, []);
+import { Tutorial } from "@/features/cardGame/Tutorial";
+import { useSettingsContext } from "@/shared/settings/useSettingsContext";
+export function CardGame() {
+  const { settings } = useSettingsContext();
   const popUpRef = useRef<HTMLDialogElement>(null);
   const [wikiData, setWikiData] = useState<Array<WikiDataType>>([]);
   useEffect(() => {
@@ -72,15 +66,7 @@ export function CardGame({ settings }: { settings: SettingsType }) {
     lastWikiData = wikiData.find((data) => data.id === lastInfo.id);
   return (
     <main className="flex-1 flex flex-col justify-center pt-6 sm:pt-10 lg:pt-15">
-      <Tutorial
-        tutorialRef={tutorialRef}
-        onClick={() => {
-          if (tutorialRef.current) tutorialRef.current.close();
-        }}
-        soundCheck={() => {
-          if (settings.soundOn) playSound(sounds.toggleOnSound);
-        }}
-      />
+      <Tutorial />
       <CardPopUp
         popUpRef={popUpRef}
         title={lastWikiData?.title + " / " + lastInfo?.name}
