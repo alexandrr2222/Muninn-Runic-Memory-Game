@@ -4,7 +4,7 @@ import { cards } from "./CardsArray";
 import { shuffle } from "./shuffleCards";
 import type { CardType } from "@/shared/types";
 import { EndDialog } from "./EndDialog";
-import { sounds, playSound } from "@/shared/sound/sounds";
+import { sounds } from "@/shared/sound/sounds";
 import { AnimatePresence, motion } from "motion/react";
 import { shadow } from "@/shared/styles";
 import { fetchWiki } from "@/features/cardInfo/wikiFetch";
@@ -12,8 +12,10 @@ import type { WikiDataType } from "@/shared/types";
 import { CardPopUp } from "@/features/cardInfo/CardPopUp";
 import { Tutorial } from "@/features/cardGame/Tutorial";
 import { useSettingsContext } from "@/shared/settings/useSettingsContext";
+import { useSound } from "@/shared/sound/useSound";
 export function CardGame() {
   const { settings } = useSettingsContext();
+  const playSound = useSound();
   const popUpRef = useRef<HTMLDialogElement>(null);
   const [wikiData, setWikiData] = useState<Array<WikiDataType>>([]);
   useEffect(() => {
@@ -75,9 +77,6 @@ export function CardGame() {
         onClick={() => {
           if (popUpRef.current) popUpRef.current.close();
         }}
-        soundCheck={() => {
-          if (settings.soundOn) playSound(sounds.toggleOnSound);
-        }}
       ></CardPopUp>
       <EndDialog
         dialogRef={dialogRef}
@@ -112,7 +111,6 @@ export function CardGame() {
               round={round}
               gameLock={gameLock}
               wikiData={wikiData[c.id - 1]}
-              settings={settings}
               setLastInfo={setLastInfo}
               popUpRef={popUpRef}
             />

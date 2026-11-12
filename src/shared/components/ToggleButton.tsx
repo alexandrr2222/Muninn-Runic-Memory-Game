@@ -1,5 +1,5 @@
 import { commonIconStyle } from "../styles";
-import { sounds, playSound } from "../sound/sounds";
+import { sounds } from "../sound/sounds";
 import type { SettingsType } from "../settings/settings";
 export function ToggleButton({
   pressed,
@@ -23,10 +23,10 @@ export function ToggleButton({
       aria-label={label}
       className="inline-grid opacity-85 transition-[opacity,scale] duration-150 hover:opacity-100 active:scale-90"
       onClick={() => {
-        if (settings.soundOn) {
-          if (pressed) playSound(sounds.toggleOnSound);
-          else playSound(sounds.toggleOffSound);
-        } else if (label === "Sound") playSound(sounds.toggleOffSound);
+        // if (settings.soundOn) {
+        //   if (pressed) playSound(sounds.toggleOnSound);
+        //   else playSound(sounds.toggleOffSound);
+        // } else if (label === "Sound") playSound(sounds.toggleOffSound);
         onToggle();
       }}
     >

@@ -2,8 +2,9 @@ import type { CardType, WikiDataType } from "@/shared/types";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
 import backCard from "./assets/00-back.svg";
-import type { SettingsType } from "@/shared/settings/settings";
-import { sounds, playSound } from "@/shared/sound/sounds";
+import { sounds } from "@/shared/sound/sounds";
+import { useSettingsContext } from "@/shared/settings/useSettingsContext";
+import { useSound } from "@/shared/sound/useSound";
 
 export function Card({
   cardObject,
@@ -11,7 +12,6 @@ export function Card({
   onClick,
   round,
   gameLock,
-  settings,
   setLastInfo,
   popUpRef,
   index,
@@ -21,11 +21,12 @@ export function Card({
   onClick: (card: CardType) => void;
   round: number;
   gameLock: boolean;
-  settings: SettingsType;
   setLastInfo: React.Dispatch<React.SetStateAction<CardType | null>>;
   popUpRef: React.RefObject<HTMLDialogElement | null>;
   index: number;
 }) {
+  const { settings } = useSettingsContext();
+  const playSound = useSound();
   const end = round * 360;
   const start = end - 360;
   const dealDelay = 0.05 + index * 0.08;
@@ -106,7 +107,7 @@ export function Card({
             className="transition-colors duration-200 underline decoration-dotted decoration-[1.5px] underline-offset-[0.25em] decoration-text/50 hover:decoration-text text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]"
             type="button"
             onClick={() => {
-              if (settings.soundOn) playSound(sounds.toggleOnSound);
+              playSound(sounds.toggleOnSound);
               setLastInfo(cardObject);
               popUpRef.current?.showModal();
               popUpRef.current?.focus();
