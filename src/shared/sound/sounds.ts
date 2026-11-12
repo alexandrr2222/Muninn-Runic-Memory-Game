@@ -5,9 +5,7 @@ const files = import.meta.glob<{ default: string }>("./assets/*", {
 const loseSound = new Audio(files["./assets/lose.mp3"].default);
 const winSound = new Audio(files["./assets/win.mp3"].default);
 const toggleOnSound = new Audio(files["./assets/toggle-on.wav"].default);
-const toggleOffSound = new Audio(
-  files["./assets/toggle-off.wav"].default,
-);
+const toggleOffSound = new Audio(files["./assets/toggle-off.wav"].default);
 const knockSoundArray: Array<HTMLAudioElement> = [];
 for (let i = 1; i < 6; i++) {
   const knockSound = new Audio(files[`./assets/knock-${i}.wav`].default);
@@ -22,7 +20,3 @@ export const sounds = {
   toggleOffSound,
   knockSoundArray,
 };
-export function playSound(audio: HTMLAudioElement) {
-  audio.currentTime = 0;
-  audio.play().catch(() => {});
-}
