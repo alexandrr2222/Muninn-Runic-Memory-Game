@@ -5,16 +5,13 @@ import { shuffle } from "./shuffleCards";
 import type { CardType } from "@/shared/types";
 import { EndDialog } from "./EndDialog";
 import { sounds } from "@/shared/sound/sounds";
-import { AnimatePresence, motion } from "motion/react";
-import { shadow } from "@/shared/styles";
 import { fetchWiki } from "@/features/cardInfo/wikiFetch";
 import type { WikiDataType } from "@/shared/types";
 import { CardPopUp } from "@/features/cardInfo/CardPopUp";
 import { Tutorial } from "@/features/cardGame/Tutorial";
-import { useSettingsContext } from "@/shared/settings/useSettingsContext";
 import { useSound } from "@/shared/sound/useSound";
+import { ScoreCounter } from "./ScoreCounter";
 export function CardGame() {
-  const { settings } = useSettingsContext();
   const playSound = useSound();
   const popUpRef = useRef<HTMLDialogElement>(null);
   const [wikiData, setWikiData] = useState<Array<WikiDataType>>([]);
@@ -38,26 +35,25 @@ export function CardGame() {
     }, 2000);
     setLastCard(cardObject);
     if (clickedCards.some((cc) => cc.id === cardObject.id)) {
-      if (settings.soundOn) playSound(sounds.loseSound);
+      playSound(sounds.loseSound);
       setGameStatus("lost");
       dialogRef.current?.showModal();
       dialogRef.current?.focus();
     } else if (clickedCards.length === cards.length - 1) {
-      if (settings.soundOn) playSound(sounds.winSound);
+      playSound(sounds.winSound);
       setClickedCards([...clickedCards, cardObject]);
       setGameStatus("won");
       dialogRef.current?.showModal();
       dialogRef.current?.focus();
     } else {
-      if (settings.soundOn) {
-        const randomKnock =
-          sounds.knockSoundArray[
-            Math.floor(Math.random() * sounds.knockSoundArray.length)
-          ];
-        randomKnock.playbackRate = rate;
-        randomKnock.currentTime = 0;
-        playSound(randomKnock);
-      }
+      const randomKnock =
+        sounds.knockSoundArray[
+          Math.floor(Math.random() * sounds.knockSoundArray.length)
+        ];
+      randomKnock.playbackRate = rate;
+      randomKnock.currentTime = 0;
+      playSound(randomKnock);
+
       setClickedCards([...clickedCards, cardObject]);
       setDeck(shuffle(cards));
       setRound(round + 1);
@@ -74,9 +70,6 @@ export function CardGame() {
         title={lastWikiData?.title + " / " + lastInfo?.name}
         text={lastWikiData?.extract}
         url={lastWikiData?.url}
-        onClick={() => {
-          if (popUpRef.current) popUpRef.current.close();
-        }}
       ></CardPopUp>
       <EndDialog
         dialogRef={dialogRef}
@@ -84,7 +77,7 @@ export function CardGame() {
           if (dialogRef.current) dialogRef.current.close();
         }}
         onClose={() => {
-          if (settings.soundOn) playSound(sounds.toggleOnSound);
+          playSound(sounds.toggleOnSound);
 
           setGameLock(true);
           setTimeout(() => {
@@ -117,25 +110,7 @@ export function CardGame() {
           );
         })}
       </div>
-      <p
-        className={`flex justify-center items-baseline pt-6 text-4xl sm:pt-10 sm:text-6xl lining-nums tabular-nums ${shadow}`}
-      >
-        <span className="relative overflow-clip inline-block py-5 -my-5 mask-[linear-gradient(to_bottom,transparent,black_30%,black_70%,transparent)]">
-          <AnimatePresence mode="popLayout" initial={false}>
-            <motion.span
-              key={clickedCards.length}
-              className="inline-block"
-              initial={{ y: "100%", opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: "-100%", opacity: 0 }}
-              transition={{ duration: 0.25 }}
-            >
-              {clickedCards.length}
-            </motion.span>
-          </AnimatePresence>
-        </span>
-        <span className="ml-1 text-[0.5em] opacity-60">/{cards.length}</span>
-      </p>
+      <ScoreCounter score={clickedCards.length} maxScore={cards.length} />
     </main>
   );
 }

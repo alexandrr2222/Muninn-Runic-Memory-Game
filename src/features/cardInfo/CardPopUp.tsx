@@ -6,13 +6,11 @@ export function CardPopUp({
   title,
   text,
   url,
-  onClick,
 }: {
   popUpRef: React.RefObject<HTMLDialogElement | null>;
   title: string | undefined;
   text: string | undefined;
   url: string | undefined;
-  onClick: () => void;
 }) {
   const playSound = useSound();
   const actionStyle =
@@ -45,7 +43,13 @@ export function CardPopUp({
             ↗
           </span>
         </a>
-        <button type="button" onClick={onClick} className={actionStyle}>
+        <button
+          type="button"
+          onClick={() => {
+            if (popUpRef.current) popUpRef.current.close();
+          }}
+          className={actionStyle}
+        >
           Close
         </button>
       </div>

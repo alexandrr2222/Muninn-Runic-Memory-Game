@@ -20,7 +20,6 @@ export function Header() {
           label="Tooltips"
           OnIcon={TooltipsOn}
           OffIcon={TooltipsOff}
-          settings={settings}
         />
       </div>
 
@@ -40,7 +39,6 @@ export function Header() {
           label="Sound"
           OnIcon={SpeakerOn}
           OffIcon={SpeakerOff}
-          settings={settings}
         />
         <ToggleButton
           pressed={settings.musicOn}
@@ -48,7 +46,6 @@ export function Header() {
           label="Music"
           OnIcon={MusicOn}
           OffIcon={MusicOff}
-          settings={settings}
         />
       </div>
     </header>
