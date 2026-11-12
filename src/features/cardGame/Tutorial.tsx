@@ -1,19 +1,23 @@
-export function Tutorial({
-  tutorialRef,
-  onClick,
-  soundCheck,
-}: {
-  tutorialRef: React.RefObject<HTMLDialogElement | null>;
-  onClick: () => void;
-  soundCheck: () => void;
-}) {
-  const actionStyle =
-    "px-6 text-xl opacity-85 transition-opacity hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text";
+import { sounds } from "@/shared/sound/sounds";
+import { useSound } from "@/shared/sound/useSound";
+import { useEffect, useRef } from "react";
+
+export function Tutorial() {
+  const playSound = useSound();
+  const tutorialRef = useRef<HTMLDialogElement>(null);
+
+  // checks if it's users first time
+  useEffect(() => {
+    if (localStorage.getItem("seenTutorial")) return;
+    localStorage.setItem("seenTutorial", "true");
+    tutorialRef.current?.showModal();
+    tutorialRef.current?.focus();
+  }, []);
 
   return (
     <dialog
       ref={tutorialRef}
-      onClose={soundCheck}
+      onClose={() => playSound(sounds.toggleOnSound)}
       className="outline-none bg-transparent m-auto w-[min(44rem,100vw)] max-h-svh overflow-y-auto bg-[radial-gradient(closest-side,rgba(0,0,0,0.55),transparent)] px-6 py-8 sm:p-20 text-center text-text opacity-0 transition-all transition-discrete duration-300 motion-reduce:transition-none open:opacity-100 starting:open:opacity-0 backdrop:bg-black/0 backdrop:backdrop-blur-none backdrop:transition-all backdrop:transition-discrete backdrop:duration-300 open:backdrop:bg-black/60 open:backdrop:backdrop-blur-[5px]"
     >
       <h3 className="font-norse text-5xl sm:text-6xl [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]">
@@ -27,7 +31,13 @@ export function Tutorial({
       </p>
 
       <div className="mx-auto mt-6 flex w-fit justify-center border-t border-text/30 pt-6">
-        <button type="button" onClick={onClick} className={actionStyle}>
+        <button
+          type="button"
+          onClick={() => {
+            if (tutorialRef.current) tutorialRef.current.close();
+          }}
+          className="px-6 text-xl opacity-85 transition-opacity hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-text"
+        >
           Understood!
         </button>
       </div>
