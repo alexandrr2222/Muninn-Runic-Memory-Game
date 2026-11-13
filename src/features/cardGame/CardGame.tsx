@@ -1,31 +1,31 @@
 import { useEffect, useRef, useState } from "react";
-import { Card } from "./Card";
-import { cards } from "./CardsArray";
+import { Card } from "./components/Card";
+import { baseCards } from "./CardsArray";
 import { shuffle } from "./shuffleCards";
 import type { CardType } from "@/shared/types";
-import { EndDialog } from "./EndDialog";
+import { EndDialog } from "./components/EndDialog";
 import { sounds } from "@/shared/sound/sounds";
-import { fetchWiki } from "@/features/cardInfo/wikiFetch";
-import type { WikiDataType } from "@/shared/types";
-import { CardPopUp } from "@/features/cardInfo/CardPopUp";
-import { Tutorial } from "@/features/cardGame/Tutorial";
+import { CardPopUp } from "@/features/cardGame/components/CardPopUp";
+import { Tutorial } from "@/features/cardGame/components/Tutorial";
 import { useSound } from "@/shared/sound/useSound";
-import { ScoreCounter } from "./ScoreCounter";
+import { ScoreCounter } from "./components/ScoreCounter";
+import { fetchWiki } from "./wikiFetch";
 export function CardGame() {
   const playSound = useSound();
-  const popUpRef = useRef<HTMLDialogElement>(null);
-  const [wikiData, setWikiData] = useState<Array<WikiDataType>>([]);
+  const [cards, setCards] = useState<Array<CardType>>(shuffle(baseCards));
   useEffect(() => {
-    fetchWiki(cards, setWikiData);
+    fetchWiki(cards, setCards);
   }, []);
-  const [deck, setDeck] = useState(() => shuffle(cards));
-  const [clickedCards, setClickedCards] = useState<Array<CardType>>([]);
+
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const [gameStatus, setGameStatus] = useState<null | "won" | "lost">(null);
   const [round, setRound] = useState(0);
   const [gameLock, setGameLock] = useState(false);
   const [lastCard, setLastCard] = useState<CardType | null>(null);
-  const [lastInfo, setLastInfo] = useState<CardType | null>(null);
+
+  const [clickedCards, setClickedCards] = useState<Array<CardType>>([]);
+  const [gameStatus, setGameStatus] = useState<null | "won" | "lost">(null);
+
+  const [infoCard, setInfoCard] = useState<CardType | null>(null);
   const rate = 1 + (clickedCards.length / cards.length) * (1.23 - 1);
   function handleCardClick(cardObject: CardType) {
     if (gameLock) return;
@@ -55,22 +55,21 @@ export function CardGame() {
       playSound(randomKnock);
 
       setClickedCards([...clickedCards, cardObject]);
-      setDeck(shuffle(cards));
+      setCards(shuffle(cards));
       setRound(round + 1);
     }
   }
-  let lastWikiData;
-  if (lastInfo !== null)
-    lastWikiData = wikiData.find((data) => data.id === lastInfo.id);
+  console.log(clickedCards);
   return (
     <main className="flex-1 flex flex-col justify-center pt-6 sm:pt-10 lg:pt-15">
       <Tutorial />
       <CardPopUp
-        popUpRef={popUpRef}
-        title={lastWikiData?.title + " / " + lastInfo?.name}
-        text={lastWikiData?.extract}
-        url={lastWikiData?.url}
-      ></CardPopUp>
+        infoCard={infoCard}
+        onClose={() => {
+          playSound(sounds.toggleOnSound);
+          setInfoCard(null);
+        }}
+      />
       <EndDialog
         dialogRef={dialogRef}
         onClick={() => {
@@ -85,16 +84,16 @@ export function CardGame() {
           }, 2000);
           setRound(round + 1);
           setClickedCards([]);
-          setDeck(shuffle(cards));
+          setCards(shuffle(cards));
         }}
-        statusText={gameStatus === "won" ? "You won" : `You lost`}
+        statusText={gameStatus === "won" ? "You won" : "You lost"}
         lastCard={lastCard}
       />
       <div
         className="board mx-auto grid w-full grid-cols-[repeat(var(--cols),minmax(0,1fr))] gap-x-(--gap-x) gap-y-(--gap-y)"
         style={{ "--count": cards.length } as React.CSSProperties}
       >
-        {deck.map((c, i) => {
+        {cards.map((c, i) => {
           return (
             <Card
               index={i}
@@ -103,9 +102,10 @@ export function CardGame() {
               onClick={handleCardClick}
               round={round}
               gameLock={gameLock}
-              wikiData={wikiData[c.id - 1]}
-              setLastInfo={setLastInfo}
-              popUpRef={popUpRef}
+              onInfoClick={() => {
+                setInfoCard(c);
+                playSound(sounds.toggleOnSound);
+              }}
             />
           );
         })}

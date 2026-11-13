@@ -24,7 +24,6 @@ export function ToggleButton({
       onClick={() => {
         if (pressed) playSound(sounds.toggleOnSound);
         else playSound(sounds.toggleOffSound);
-        if (label === "Sound") playSound(sounds.toggleOffSound);
         onToggle();
       }}
     >

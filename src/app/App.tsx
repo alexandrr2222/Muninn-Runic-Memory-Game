@@ -15,3 +15,6 @@ function App() {
 }
 
 export default App;
+
+// todo BUGS
+// sound broken on sound icon

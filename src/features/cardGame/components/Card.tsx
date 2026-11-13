@@ -1,36 +1,28 @@
-import type { CardType, WikiDataType } from "@/shared/types";
+import type { CardType } from "@/shared/types";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
-import backCard from "./assets/00-back.svg";
-import { sounds } from "@/shared/sound/sounds";
+import backCard from "../assets/00-back.svg";
 import { useSettingsContext } from "@/shared/settings/useSettingsContext";
-import { useSound } from "@/shared/sound/useSound";
 
 export function Card({
   cardObject,
-  wikiData,
   onClick,
   round,
   gameLock,
-  setLastInfo,
-  popUpRef,
+  onInfoClick,
   index,
 }: {
   cardObject: CardType;
-  wikiData?: WikiDataType;
   onClick: (card: CardType) => void;
   round: number;
   gameLock: boolean;
-  setLastInfo: React.Dispatch<React.SetStateAction<CardType | null>>;
-  popUpRef: React.RefObject<HTMLDialogElement | null>;
+  onInfoClick: () => void;
   index: number;
 }) {
   const { settings } = useSettingsContext();
-  const playSound = useSound();
   const end = round * 360;
   const start = end - 360;
   const dealDelay = 0.05 + index * 0.08;
-
   return (
     <motion.div
       className="@container min-w-0"
@@ -95,9 +87,9 @@ export function Card({
         transition={{ duration: 2.4, times: [0, 0.125, 0.5, 0.875, 1] }}
         className="flex justify-center pt-[max(0.5rem,2cqw)] pb-[10cqw] will-change-[opacity]"
       >
-        {wikiData === undefined ||
-        wikiData.extract === "" ||
-        wikiData.url === "" ||
+        {cardObject.fetchedWikiTitle === undefined ||
+        cardObject.fetchedWikiExtract === undefined ||
+        cardObject.fetchedWikiUrl === undefined ||
         !settings.tooltipsOn ? (
           <p className="text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]">
             {cardObject.name}
@@ -106,12 +98,7 @@ export function Card({
           <button
             className="transition-colors duration-200 underline decoration-dotted decoration-[1.5px] underline-offset-[0.25em] decoration-text/50 hover:decoration-text text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]"
             type="button"
-            onClick={() => {
-              playSound(sounds.toggleOnSound);
-              setLastInfo(cardObject);
-              popUpRef.current?.showModal();
-              popUpRef.current?.focus();
-            }}
+            onClick={onInfoClick}
           >
             {cardObject.name}
           </button>
