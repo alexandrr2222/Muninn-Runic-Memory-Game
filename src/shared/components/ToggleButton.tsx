@@ -1,6 +1,4 @@
 import { commonIconStyle } from "../styles";
-import { sounds } from "../sound/sounds";
-import { useSound } from "../sound/useSound";
 export function ToggleButton({
   pressed,
   onToggle,
@@ -14,7 +12,6 @@ export function ToggleButton({
   OnIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   OffIcon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }) {
-  const playSound = useSound();
   return (
     <button
       type="button"
@@ -22,8 +19,6 @@ export function ToggleButton({
       aria-label={label}
       className="inline-grid opacity-85 transition-[opacity,scale] duration-150 hover:opacity-100 active:scale-90"
       onClick={() => {
-        if (pressed) playSound(sounds.toggleOnSound);
-        else playSound(sounds.toggleOffSound);
         onToggle();
       }}
     >

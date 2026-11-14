@@ -7,7 +7,7 @@ function playSound(audio: HTMLAudioElement) {
 
 export function useSound() {
   const { settings } = useSettingsContext();
-  return (sound: HTMLAudioElement) => {
-    if (settings.soundOn) playSound(sound);
+  return (sound: HTMLAudioElement, { playDespiteMute = false } = {}) => {
+    if (settings.soundOn || playDespiteMute) playSound(sound);
   };
 }

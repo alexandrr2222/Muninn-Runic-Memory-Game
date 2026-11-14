@@ -15,6 +15,7 @@ export function CardGame() {
   const [cards, setCards] = useState<Array<CardType>>(shuffle(baseCards));
   useEffect(() => {
     fetchWiki(cards, setCards);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [round, setRound] = useState(0);
