@@ -4,11 +4,11 @@ import { useEffect, useRef } from "react";
 export function EndDialog({
   gameStatus,
   onClose,
-  lastCard,
+  losingCard,
 }: {
   gameStatus: null | "won" | "lost";
   onClose: () => void;
-  lastCard: CardType | null;
+  losingCard: CardType | null;
 }) {
   const endDialogRef = useRef<HTMLDialogElement>(null);
 
@@ -28,17 +28,17 @@ export function EndDialog({
         {gameStatus === "lost" ? "You lost!" : "You won!"}
       </h2>
 
-      {gameStatus === "lost" && lastCard ? (
+      {losingCard ? (
         <>
           <img
-            src={lastCard.icon}
-            alt={lastCard.name}
+            src={losingCard.icon}
+            alt={losingCard.name}
             draggable={false}
             className="mx-auto mt-6 w-36 sm:mt-8 sm:w-56 select-none filter-[url(#warm)_drop-shadow(0_14px_18px_rgba(0,0,0,0.75))]"
           />
           <p className="mt-6 text-lg sm:mt-8 sm:text-xl [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]">
             You already picked{" "}
-            <span className="text-[#e59a5c] italic">{lastCard.name}</span>
+            <span className="text-[#e59a5c] italic">{losingCard.name}</span>
             .
             <br />
             Each rune can only be picked once.
