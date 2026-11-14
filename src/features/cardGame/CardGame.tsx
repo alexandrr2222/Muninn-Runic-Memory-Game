@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Card } from "./components/Card";
 import { baseCards } from "./CardsArray";
 import { shuffle } from "./shuffleCards";
@@ -17,7 +17,6 @@ export function CardGame() {
     fetchWiki(cards, setCards);
   }, []);
 
-  const dialogRef = useRef<HTMLDialogElement>(null);
   const [round, setRound] = useState(0);
   const [gameLock, setGameLock] = useState(false);
   const [lastCard, setLastCard] = useState<CardType | null>(null);
@@ -37,14 +36,10 @@ export function CardGame() {
     if (clickedCards.some((cc) => cc.id === cardObject.id)) {
       playSound(sounds.loseSound);
       setGameStatus("lost");
-      dialogRef.current?.showModal();
-      dialogRef.current?.focus();
     } else if (clickedCards.length === cards.length - 1) {
       playSound(sounds.winSound);
       setClickedCards([...clickedCards, cardObject]);
       setGameStatus("won");
-      dialogRef.current?.showModal();
-      dialogRef.current?.focus();
     } else {
       const randomKnock =
         sounds.knockSoundArray[
@@ -59,7 +54,17 @@ export function CardGame() {
       setRound(round + 1);
     }
   }
-  console.log(clickedCards);
+  function restartGame() {
+    playSound(sounds.toggleOnSound);
+    setGameLock(true);
+    setTimeout(() => {
+      setGameLock(false);
+    }, 2000);
+    setRound(round + 1);
+    setClickedCards([]);
+    setCards(shuffle(cards));
+    setGameStatus(null);
+  }
   return (
     <main className="flex-1 flex flex-col justify-center pt-6 sm:pt-10 lg:pt-15">
       <Tutorial />
@@ -71,22 +76,8 @@ export function CardGame() {
         }}
       />
       <EndDialog
-        dialogRef={dialogRef}
-        onClick={() => {
-          if (dialogRef.current) dialogRef.current.close();
-        }}
-        onClose={() => {
-          playSound(sounds.toggleOnSound);
-
-          setGameLock(true);
-          setTimeout(() => {
-            setGameLock(false);
-          }, 2000);
-          setRound(round + 1);
-          setClickedCards([]);
-          setCards(shuffle(cards));
-        }}
-        statusText={gameStatus === "won" ? "You won" : "You lost"}
+        onClose={restartGame}
+        gameStatus={gameStatus}
         lastCard={lastCard}
       />
       <div
