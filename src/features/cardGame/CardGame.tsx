@@ -11,11 +11,10 @@ import { useSound } from "@/shared/sound/useSound";
 import { ScoreCounter } from "./components/ScoreCounter";
 import { fetchWiki } from "./wikiFetch";
 export function CardGame() {
-  // effect
-  const playSound = useSound();
   // rule
   const [cards, setCards] = useState<Array<CardType>>(shuffle(baseCards));
   const [clickedCards, setClickedCards] = useState<Array<CardType>>([]);
+  const [losingCard, setLosingCard] = useState<CardType | null>(null);
   // data
   useEffect(() => {
     fetchWiki(cards, setCards);
@@ -27,10 +26,8 @@ export function CardGame() {
   // effects for animation
   const [round, setRound] = useState(0);
   const [gameLock, setGameLock] = useState(false);
-  // rule
-  const [losingCard, setLosingCard] = useState<CardType | null>(null);
-
   // effect
+  const playSound = useSound();
   const rate = 1 + (clickedCards.length / cards.length) * (1.23 - 1);
 
   function handleCardClick(cardObject: CardType) {
@@ -72,9 +69,9 @@ export function CardGame() {
     }, 2000);
     setRound(round + 1);
     // rules
+    setLosingCard(null);
     setClickedCards([]);
     setCards(shuffle(cards));
-    setLosingCard(null);
   }
   const gameStatus =
     clickedCards.length === cards.length
@@ -82,6 +79,7 @@ export function CardGame() {
       : losingCard !== null
         ? "lost"
         : null;
+
   return (
     <main className="flex-1 flex flex-col justify-center pt-6 sm:pt-10 lg:pt-15">
       <Tutorial />
