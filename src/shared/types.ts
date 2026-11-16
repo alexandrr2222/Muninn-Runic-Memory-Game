@@ -3,12 +3,10 @@ export type CardType = {
   name: string;
   icon: string;
   wikiTitle: string;
-  fetchedWikiTitle?: string;
-  fetchedWikiExtract?: string;
-  fetchedWikiUrl?: string;
 };
 export type WikiDataType = {
   id: number;
+  cardName: string;
   title: string;
   extract: string;
   url: string;

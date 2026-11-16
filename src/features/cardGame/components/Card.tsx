@@ -1,4 +1,4 @@
-import type { CardType } from "@/shared/types";
+import type { CardType, WikiDataType } from "@/shared/types";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
 import backCard from "../assets/00-back.svg";
@@ -8,13 +8,15 @@ export function Card({
   cardObject,
   onClick,
   round,
+  wikiData,
   gameLock,
   onInfoClick,
   index,
 }: {
   cardObject: CardType;
-  onClick: (card: CardType) => void;
+  onClick: () => void;
   round: number;
+  wikiData: WikiDataType | undefined;
   gameLock: boolean;
   onInfoClick: () => void;
   index: number;
@@ -60,7 +62,7 @@ export function Card({
                     : [start, start + 180, start + 180, start + 180, end],
               }}
               transition={{ duration: 2 }}
-              onClick={() => onClick(cardObject)}
+              onClick={onClick}
             >
               <img
                 className="absolute inset-0 backface-hidden filter-[url(#warm)]"
@@ -87,9 +89,9 @@ export function Card({
         transition={{ duration: 2.4, times: [0, 0.125, 0.5, 0.875, 1] }}
         className="flex justify-center pt-[max(0.5rem,2cqw)] pb-[10cqw] will-change-[opacity]"
       >
-        {cardObject.fetchedWikiTitle === undefined ||
-        cardObject.fetchedWikiExtract === undefined ||
-        cardObject.fetchedWikiUrl === undefined ||
+        {wikiData?.title === undefined ||
+        wikiData?.extract === undefined ||
+        wikiData?.url === undefined ||
         !settings.tooltipsOn ? (
           <p className="text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]">
             {cardObject.name}

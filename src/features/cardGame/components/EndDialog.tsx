@@ -1,8 +1,8 @@
 import type { CardType } from "@/shared/types";
 import { useEffect, useRef, useState } from "react";
+import type { GameStatusType } from "../memoryGame";
 
-type GameStatusType = null | "won" | "lost";
-type LosingCardType = CardType | null;
+type LosingCardType = CardType | undefined;
 export function EndDialog({
   gameStatus,
   onClose,
@@ -27,10 +27,10 @@ export function EndDialog({
   const [internalGameStatus, setInternalGameStatus] =
     useState<GameStatusType>(null);
   const [internalLosingCard, setInternalLosingCard] =
-    useState<LosingCardType>(null);
+    useState<LosingCardType>(undefined);
   if (
     (gameStatus !== null && gameStatus !== internalGameStatus) ||
-    (losingCard !== null && losingCard !== internalLosingCard)
+    (losingCard !== undefined && losingCard !== internalLosingCard)
   ) {
     setInternalGameStatus(gameStatus);
     setInternalLosingCard(losingCard);

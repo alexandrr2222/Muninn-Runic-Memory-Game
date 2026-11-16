@@ -7,7 +7,24 @@ function playSound(audio: HTMLAudioElement) {
 
 export function useSound() {
   const { settings } = useSettingsContext();
-  return (sound: HTMLAudioElement, { playDespiteMute = false } = {}) => {
-    if (settings.soundOn || playDespiteMute) playSound(sound);
+  return (
+    sound: HTMLAudioElement,
+    {
+      playDespiteMute = false,
+      rateProgress = null,
+      soundArray = [],
+    }: {
+      playDespiteMute?: boolean;
+      rateProgress?: null | number;
+      soundArray?: Array<HTMLAudioElement>;
+    } = {},
+  ) => {
+    if (rateProgress !== null && settings.soundOn) {
+      const rate = 1 + rateProgress * (1.23 - 1);
+      const randomKnock: HTMLAudioElement =
+        soundArray[Math.floor(Math.random() * soundArray.length)];
+      randomKnock.playbackRate = rate;
+      playSound(randomKnock);
+    } else if (settings.soundOn || playDespiteMute) playSound(sound);
   };
 }
