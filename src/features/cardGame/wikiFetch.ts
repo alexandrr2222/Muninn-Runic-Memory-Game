@@ -33,10 +33,9 @@ export async function fetchWiki(
   const results = await Promise.allSettled(promises);
   const wikiDataArray = results
     .filter((obj) => obj.status === "fulfilled")
-    .map((obj) => {
-      if (obj.value.title.includes("(rune)"))
-        return { ...obj.value, title: obj.value.title.slice(0, -7) };
-      else return { ...obj.value };
-    });
+    .map((obj) => ({
+      ...obj.value,
+      title: obj.value.title.replace(" (rune)", ""),
+    }));
   return wikiDataArray;
 }

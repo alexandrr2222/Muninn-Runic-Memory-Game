@@ -5,6 +5,7 @@ import backCard from "../assets/00-back.svg";
 import { useSettingsContext } from "@/shared/settings/useSettingsContext";
 import { useSound } from "@/shared/sound/useSound";
 import { sounds } from "@/shared/sound/sounds";
+import { FLIP_DURATION_MS } from "../flipDuration";
 
 export function Card({
   cardObject,
@@ -64,7 +65,7 @@ export function Card({
                     ? 0
                     : [start, start + 180, start + 180, start + 180, end],
               }}
-              transition={{ duration: 2 }}
+              transition={{ duration: FLIP_DURATION_MS / 1000 }}
               onClick={onClick}
             >
               <img

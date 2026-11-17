@@ -27,7 +27,7 @@ export function CardGame() {
 
   return (
     <main className="flex-1 flex flex-col justify-center pt-6 sm:pt-10 lg:pt-15">
-      <Tutorial />
+      <Tutorial amountOfCards={maxScore} />
       <CardPopUp
         wikiData={getWikiFor(infoCard?.id)}
         onClose={() => setInfoCard(null)}

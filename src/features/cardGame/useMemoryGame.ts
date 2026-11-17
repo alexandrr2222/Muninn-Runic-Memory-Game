@@ -3,6 +3,7 @@ import { getStatus, newGame, pickCard, type GameType } from "./memoryGame";
 import { useSound } from "@/shared/sound/useSound";
 import { baseCards } from "./CardsArray";
 import { sounds } from "@/shared/sound/sounds";
+import { FLIP_DURATION_MS } from "./flipDuration";
 
 // React shell around memoryGame: holds the state,
 // locks input during the card flip, plays sounds
@@ -18,8 +19,6 @@ export function useMemoryGame() {
   const losingCard = game.cards.find((c) => c.id === game.losingCardId);
   const gameStatus = getStatus(game);
 
-  const FLIP_DURATION_MS = 2000;
-  //   times out lock because animation duration in card.tsx takes 2s to animate each round
   function startLockCycle() {
     setGameLock(true);
     setTimeout(() => {

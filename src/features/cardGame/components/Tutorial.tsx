@@ -2,7 +2,7 @@ import { sounds } from "@/shared/sound/sounds";
 import { useSound } from "@/shared/sound/useSound";
 import { useEffect, useRef } from "react";
 
-export function Tutorial() {
+export function Tutorial({ amountOfCards }: { amountOfCards: number }) {
   const playSound = useSound();
   const tutorialRef = useRef<HTMLDialogElement>(null);
 
@@ -26,8 +26,8 @@ export function Tutorial() {
 
       <p className="mt-6 text-lg sm:mt-8 sm:text-xl leading-relaxed [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]">
         Pick a rune each round, but never pick the same rune twice, because the
-        cards reshuffle after every pick. Pick all 16 without repeating one to
-        win.
+        cards reshuffle after every pick. Pick all {amountOfCards} without
+        repeating one to win.
       </p>
 
       <div className="mx-auto mt-6 flex w-fit justify-center border-t border-text/30 pt-6">
