@@ -1,5 +1,5 @@
-import type { CardType } from "./types";
-import { shuffle } from "./shuffleCards";
+import type { CardType } from "../deck/types";
+import { shuffle } from "./shuffle";
 
 export type GameType = {
   cards: Array<CardType>;

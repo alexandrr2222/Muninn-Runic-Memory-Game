@@ -1,6 +1,6 @@
-import type { CardType } from "../types";
+import type { CardType } from "../deck/types";
 import { useEffect, useRef, useState } from "react";
-import type { GameStatusType } from "../memoryGame";
+import type { GameStatusType } from "../game/memoryGame";
 
 type LosingCardType = CardType | undefined;
 export function EndDialog({

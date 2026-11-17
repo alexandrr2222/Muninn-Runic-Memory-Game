@@ -1,7 +1,7 @@
-import type { CardType } from "../types";
+import type { CardType } from "../deck/types";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
-import backCard from "../assets/00-back.svg";
+import backCard from "../deck/assets/00-back.svg";
 import { useSettingsContext } from "@/shared/settings/useSettingsContext";
 import { useSound } from "@/shared/sound/useSound";
 import { sounds } from "@/shared/sound/sounds";

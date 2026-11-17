@@ -1,4 +1,4 @@
-import type { CardType } from "./types";
+import type { CardType } from "../deck/types";
 
 export type WikiDataType = {
   id: number;

@@ -1,7 +1,7 @@
-import type { WikiDataType } from "./wikiFetch";
+import type { WikiDataType } from "./fetchWiki";
 import { useEffect, useState } from "react";
-import { fetchWiki } from "./wikiFetch";
-import { baseCards } from "./CardsArray";
+import { fetchWiki } from "./fetchWiki";
+import { baseCards } from "../deck/cards";
 
 export function useWikiData() {
   const [wikiData, setWikiData] = useState<Array<WikiDataType>>();

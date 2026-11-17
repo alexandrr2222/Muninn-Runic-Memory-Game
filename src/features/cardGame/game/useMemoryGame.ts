@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { getStatus, newGame, pickCard, type GameType } from "./memoryGame";
 import { useSound } from "@/shared/sound/useSound";
-import { baseCards } from "./CardsArray";
+import { baseCards } from "../deck/cards";
 import { sounds } from "@/shared/sound/sounds";
-import { FLIP_DURATION_MS } from "./flipDuration";
+import { FLIP_DURATION_MS } from "../flipDuration";
 
 // React shell around memoryGame: holds the state,
 // locks input during the card flip, plays sounds

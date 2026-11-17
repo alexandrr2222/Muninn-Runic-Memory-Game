@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Card } from "./components/Card";
-import type { CardType } from "./types";
+import type { CardType } from "./deck/types";
 import { EndDialog } from "./components/EndDialog";
-import { CardPopUp } from "@/features/cardGame/components/CardPopUp";
-import { Tutorial } from "@/features/cardGame/components/Tutorial";
+import { CardPopUp } from "./components/CardPopUp";
+import { Tutorial } from "./components/Tutorial";
 import { ScoreCounter } from "./components/ScoreCounter";
-import { useMemoryGame } from "./useMemoryGame";
-import { useWikiData } from "./useWikiData";
+import { useMemoryGame } from "./game/useMemoryGame";
+import { useWikiData } from "./wiki/useWikiData";
 
 export function CardGame() {
   const [infoCard, setInfoCard] = useState<CardType | null>(null);

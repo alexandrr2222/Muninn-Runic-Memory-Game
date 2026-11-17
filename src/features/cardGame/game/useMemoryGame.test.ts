@@ -2,7 +2,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderHook, act } from "@testing-library/react";
 import { useMemoryGame } from "./useMemoryGame";
-import { baseCards } from "./CardsArray";
+import { baseCards } from "../deck/cards";
 import { sounds } from "@/shared/sound/sounds";
 
 // Replace useSound with a spy: the tests check which sound was asked for,

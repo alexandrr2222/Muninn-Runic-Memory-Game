@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { shuffle } from "./shuffleCards";
+import { shuffle } from "./shuffle";
 
 describe("shuffle", () => {
   const items = [1, 2, 3, 4, 5];

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { fetchWiki } from "./wikiFetch";
-import type { CardType } from "./types";
+import { fetchWiki } from "./fetchWiki";
+import type { CardType } from "../deck/types";
 
 const cards: Array<CardType> = [
   { id: 0, name: "Fé", icon: "", wikiTitle: "Fehu" },
