@@ -9,9 +9,15 @@ import { shadow } from "@/shared/styles";
 import { useSettingsContext } from "@/shared/settings/useSettingsContext";
 import { sounds } from "@/shared/sound/sounds";
 import { useSound } from "@/shared/sound/useSound";
+import type { SettingsType } from "@/shared/settings/settings";
 export function Header() {
   const { settings, toggleSetting } = useSettingsContext();
   const playSound = useSound();
+  function toggleWithSound(setting: keyof SettingsType) {
+    if (!settings[setting]) playSound(sounds.toggleOnSound);
+    else playSound(sounds.toggleOffSound);
+    toggleSetting(setting);
+  }
   return (
     <header
       className={`grid grid-cols-[1fr_auto_1fr] items-center sm:px-8 ${shadow}`}
@@ -19,11 +25,7 @@ export function Header() {
       <div className="justify-self-start self-start pt-2">
         <ToggleButton
           pressed={settings.tooltipsOn}
-          onToggle={() => {
-            if (!settings.tooltipsOn) playSound(sounds.toggleOnSound);
-            else playSound(sounds.toggleOffSound);
-            toggleSetting("tooltipsOn");
-          }}
+          onToggle={() => toggleWithSound("tooltipsOn")}
           label="Tooltips"
           OnIcon={TooltipsOn}
           OffIcon={TooltipsOff}
@@ -53,11 +55,7 @@ export function Header() {
         />
         <ToggleButton
           pressed={settings.musicOn}
-          onToggle={() => {
-            if (!settings.musicOn) playSound(sounds.toggleOnSound);
-            else playSound(sounds.toggleOffSound);
-            toggleSetting("musicOn");
-          }}
+          onToggle={() => toggleWithSound("musicOn")}
           label="Music"
           OnIcon={MusicOn}
           OffIcon={MusicOff}
