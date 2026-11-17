@@ -1,4 +1,4 @@
-import type { CardType } from "@/shared/types";
+import type { CardType } from "./types";
 import { shuffle } from "./shuffleCards";
 
 export type GameType = {

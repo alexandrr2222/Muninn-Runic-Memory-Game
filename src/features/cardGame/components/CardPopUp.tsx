@@ -1,6 +1,6 @@
 import { sounds } from "@/shared/sound/sounds";
 import { useSound } from "@/shared/sound/useSound";
-import type { WikiDataType } from "@/shared/types";
+import type { WikiDataType } from "../wikiFetch";
 import { useEffect, useRef } from "react";
 
 export function CardPopUp({

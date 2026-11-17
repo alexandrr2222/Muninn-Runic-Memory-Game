@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { newGame, pickCard, getStatus } from "./memoryGame";
-import type { CardType } from "@/shared/types";
+import type { CardType } from "./types";
 
 // Small fake deck: the rules don't care what the cards are,
 // and the tests shouldn't depend on real assets.

@@ -1,4 +1,4 @@
-import type { WikiDataType } from "@/shared/types";
+import type { WikiDataType } from "./wikiFetch";
 import { useEffect, useState } from "react";
 import { fetchWiki } from "./wikiFetch";
 import { baseCards } from "./CardsArray";

@@ -1,4 +1,4 @@
-import type { CardType } from "@/shared/types";
+import type { CardType } from "../types";
 import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
 import backCard from "../assets/00-back.svg";

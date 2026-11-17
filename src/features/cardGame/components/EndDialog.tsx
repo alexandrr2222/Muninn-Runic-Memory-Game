@@ -1,4 +1,4 @@
-import type { CardType } from "@/shared/types";
+import type { CardType } from "../types";
 import { useEffect, useRef, useState } from "react";
 import type { GameStatusType } from "../memoryGame";
 

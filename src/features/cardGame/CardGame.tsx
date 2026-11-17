@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Card } from "./components/Card";
-import type { CardType } from "@/shared/types";
+import type { CardType } from "./types";
 import { EndDialog } from "./components/EndDialog";
 import { CardPopUp } from "@/features/cardGame/components/CardPopUp";
 import { Tutorial } from "@/features/cardGame/components/Tutorial";

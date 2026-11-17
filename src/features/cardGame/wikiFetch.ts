@@ -1,4 +1,12 @@
-import type { CardType, WikiDataType } from "@/shared/types";
+import type { CardType } from "./types";
+
+export type WikiDataType = {
+  id: number;
+  cardName: string;
+  title: string;
+  extract: string;
+  url: string;
+};
 
 export async function fetchWiki(
   cards: Array<CardType>,

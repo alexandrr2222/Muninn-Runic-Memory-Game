@@ -1,4 +1,4 @@
-import type { CardType } from "@/shared/types";
+import type { CardType } from "./types";
 
 const files = import.meta.glob<{ default: string }>("./assets/*.svg", {
   eager: true,
