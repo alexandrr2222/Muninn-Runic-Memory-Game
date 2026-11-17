@@ -48,7 +48,7 @@ export function CardGame() {
               cardObject={c}
               key={c.id}
               onClick={() => applyCard(c.id)}
-              wikiData={getWikiFor(c.id)}
+              hasWikiInfo={getWikiFor(c.id) ? true : false}
               round={round}
               gameLock={gameLock}
               onInfoClick={() => setInfoCard(c)}
