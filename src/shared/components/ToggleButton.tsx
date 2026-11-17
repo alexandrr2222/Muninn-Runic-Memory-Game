@@ -17,7 +17,7 @@ export function ToggleButton({
       type="button"
       aria-pressed={pressed}
       aria-label={label}
-      className="inline-grid opacity-85 transition-[opacity,scale] duration-150 hover:opacity-100 active:scale-90"
+      className="focus-visible:outline-focusborder focus-visible:outline-1 inline-grid opacity-85 transition-[opacity,scale] duration-150 hover:opacity-100 active:scale-90"
       onClick={() => {
         onToggle();
       }}
