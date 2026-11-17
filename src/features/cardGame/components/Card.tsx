@@ -50,14 +50,14 @@ export function Card({
           tiltMaxAngleY={16}
           transitionSpeed={600}
           glareEnable
-          glareColor="#c97637"
+          glareColor="var(--color-glare)"
           glareMaxOpacity={0.15}
           glarePosition="all"
           glareBorderRadius="24px"
         >
           <div className="perspective-distant">
             <motion.button
-              className="block w-full aspect-49/74 transform-3d select-none focus-visible:outline-4 rounded-[8%/5.4%] focus-visible:-outline-offset-4 focus-visible:outline-text"
+              className="group block w-full aspect-49/74 transform-3d select-none rounded-[8%/5.4%] outline-none"
               type="button"
               animate={{
                 rotateY:
@@ -81,6 +81,12 @@ export function Card({
                 alt=""
                 draggable={false}
               />
+              {/* Focus ring as its own layer on top of the card art: an outline
+                  would be painted under the images and cut off by the clip-path */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-[2%_3%] rounded-[8%/5.4%] opacity-0 ring-[6px] ring-inset ring-focusborder group-focus-visible:opacity-100"
+              />
             </motion.button>
           </div>
         </Tilt>
@@ -99,7 +105,7 @@ export function Card({
           </p>
         ) : (
           <button
-            className="transition-colors duration-200 underline decoration-dotted decoration-[1.5px] underline-offset-[0.25em] decoration-text/50 hover:decoration-text text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]"
+            className="focus-visible:outline-1 -focus-visible:-outline-offset-3 focus-visible:outline-focusborder transition-colors duration-200 underline decoration-dotted decoration-[1.5px] underline-offset-[0.25em] decoration-text/50 hover:decoration-text text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]"
             type="button"
             onClick={() => {
               onInfoClick();

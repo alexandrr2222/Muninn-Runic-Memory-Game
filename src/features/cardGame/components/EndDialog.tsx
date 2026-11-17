@@ -31,7 +31,7 @@ export function EndDialog({
           <ModalText>
             <span>
               You already picked
-              <span className="text-[#e59a5c] italic">
+              <span className="text-highlight italic">
                 {losingCard.name + "."}
               </span>
             </span>

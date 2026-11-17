@@ -8,10 +8,25 @@
   </head>
   <body>
     <svg style="position: absolute; width: 0; height: 0" aria-hidden="true">
-      <filter id="warm" colorInterpolationFilters="sRGB">
+      <!-- Card art: a warm grade, then the night-light tint from index.css -->
+      <filter id="warm">
         <feColorMatrix
+          color-interpolation-filters="linearRGB"
           type="matrix"
           values="1 0 0 0 0  0 0.855 0 0 0  0 0 0.733 0 0  0 0 0 1 0"
+          result="graded"
+        />
+        <feFlood
+          color-interpolation-filters="sRGB"
+          style="flood-color: var(--nightlight)"
+          result="tint"
+        />
+        <feComposite
+          color-interpolation-filters="sRGB"
+          in="graded"
+          in2="tint"
+          operator="arithmetic"
+          k1="1"
         />
       </filter>
     </svg>
