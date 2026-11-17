@@ -3,6 +3,8 @@ import { motion } from "motion/react";
 import Tilt from "react-parallax-tilt";
 import backCard from "../assets/00-back.svg";
 import { useSettingsContext } from "@/shared/settings/useSettingsContext";
+import { useSound } from "@/shared/sound/useSound";
+import { sounds } from "@/shared/sound/sounds";
 
 export function Card({
   cardObject,
@@ -21,6 +23,7 @@ export function Card({
   onInfoClick: () => void;
   index: number;
 }) {
+  const playSound = useSound();
   const { settings } = useSettingsContext();
   const end = round * 360;
   const start = end - 360;
@@ -100,7 +103,10 @@ export function Card({
           <button
             className="transition-colors duration-200 underline decoration-dotted decoration-[1.5px] underline-offset-[0.25em] decoration-text/50 hover:decoration-text text-[max(0.7rem,9cqw)] leading-tight opacity-90 [text-shadow:0_2px_4px_rgba(0,0,0,0.7)]"
             type="button"
-            onClick={onInfoClick}
+            onClick={() => {
+              onInfoClick();
+              playSound(sounds.toggleOnSound);
+            }}
           >
             {cardObject.name}
           </button>
