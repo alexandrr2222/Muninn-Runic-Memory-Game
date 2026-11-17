@@ -27,7 +27,6 @@ export function useMemoryGame() {
   }
 
   function restart() {
-    playSound(sounds.toggleOnSound);
     setGame(newGame(game.cards));
     startLockCycle();
     setRound(round + 1);

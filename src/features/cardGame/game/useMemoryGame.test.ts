@@ -116,7 +116,6 @@ describe("useMemoryGame", () => {
     expect(result.current.gameStatus).toBeNull();
     expect(result.current.losingCard).toBeUndefined();
     expect(result.current.round).toBe(roundBefore + 1);
-    expect(playSound).toHaveBeenLastCalledWith(sounds.toggleOnSound);
   });
 
   it("restart works even while the cards are flipping", () => {
