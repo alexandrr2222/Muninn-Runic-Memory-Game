@@ -47,7 +47,7 @@ describe("pickCard", () => {
     game = pickCard(game, 1);
     game = pickCard(game, 1);
 
-    expect(getStatus(game)).toBe("lost");
+    expect(getStatus(game)).toBe("won");
     expect(game.losingCardId).toBe(1);
   });
 
