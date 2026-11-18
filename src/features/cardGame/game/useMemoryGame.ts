@@ -42,9 +42,8 @@ export function useMemoryGame() {
     if (status === "lost") playSound(sounds.loseSound);
     else if (status === "won") playSound(sounds.winSound);
     else {
-      playSound(sounds.winSound, {
-        rateProgress: game.clickedCardIds.length / game.cards.length,
-        soundArray: sounds.knockSoundArray,
+      playSound(sounds.getRandomKnock(), {
+        rate: sounds.getKnockRate({ progress: score / maxScore }),
       });
       setRound(round + 1);
     }

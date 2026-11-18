@@ -12,11 +12,19 @@ for (let i = 1; i < 6; i++) {
   knockSound.preservesPitch = false;
   knockSoundArray.push(knockSound);
 }
+function getRandomKnock() {
+  return knockSoundArray[Math.floor(Math.random() * knockSoundArray.length)];
+}
+function getKnockRate({ progress }: { progress: number }) {
+  const MAX_KNOCK_RATE = 1.23;
+  return 1 + progress * (MAX_KNOCK_RATE - 1);
+}
 
 export const sounds = {
   loseSound,
   winSound,
   toggleOnSound,
   toggleOffSound,
-  knockSoundArray,
+  getRandomKnock,
+  getKnockRate,
 };

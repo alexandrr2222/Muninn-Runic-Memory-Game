@@ -54,7 +54,7 @@ describe("useMemoryGame", () => {
     expect(result.current.round).toBe(1);
     expect(playSound).toHaveBeenCalledWith(
       expect.anything(),
-      expect.objectContaining({ soundArray: sounds.knockSoundArray }),
+      expect.objectContaining({ rate: expect.any(Number) }),
     );
   });
 
