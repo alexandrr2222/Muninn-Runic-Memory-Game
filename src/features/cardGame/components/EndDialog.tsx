@@ -32,7 +32,7 @@ export function EndDialog({
             <span>
               You already picked
               <span className="text-highlight italic">
-                {losingCard.name + "."}
+                {" " + losingCard.name + "."}
               </span>
             </span>
             <br />
